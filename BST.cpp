@@ -4,11 +4,9 @@ template <class T, class S>
 BST<T, S>::BST()
 {
 	pRoot = nullptr;
-
-
-
 	//FILE
-	fileWork.open();
+	fileWork.open("MorseTable.txt", ios::in);
+
 }
 
 template<class T, class S>
