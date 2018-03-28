@@ -2,6 +2,7 @@
 
 #include "BSTNode.h"
 
+template<class C, class S>
 class BST 
 {
 public:
@@ -19,7 +20,8 @@ public:
 
 
 private:
-	BSTNode * pRoot;
+	BSTNode<C,S> * pRoot;
 	//void insert(BSTNode *& pTree, const string & info);
+	fstream fileWork;
 
 };

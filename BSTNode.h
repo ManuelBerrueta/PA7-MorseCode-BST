@@ -16,23 +16,26 @@ using std::endl;
 using std::getline;
 using std::stoi;
 
+template<class C, class S>
 class BSTNode
 {
 public:
-	BSTNode(char newEnglish, string newMorse, BSTNode *newRight, BSTNode *newLeft);
+	BSTNode(C newEnglish, S newMorse);
 	
 	//Our Data is private so we need getters & setters
-	char getnormEnglish()const;
-	string getstrMorse()const;
-	//
+	C getnormEnglish();
+	S getstrMorse();
 
 
 	BSTNode *& getpRight();
 	BSTNode *& getpLeft();
+	
+	void printInOrder();
+	void searchEnglish();
 
 private:
-	char normEnglish[1];
-	string strMorse;
+	C normEnglish[1];
+	S strMorse;
 
 	BSTNode *pRight;
 	BSTNode *pLeft;

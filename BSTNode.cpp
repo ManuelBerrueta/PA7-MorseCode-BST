@@ -1,7 +1,8 @@
 #include "BSTNode.h"
 
 //Default Constructor
-BSTNode::BSTNode(char newEnglish, string newMorse, BSTNode * newRight, BSTNode * newLeft)
+template<class C, class S>
+BSTNode<C, S>::BSTNode(C newEnglish, S newMorse)
 {
 	normEnglish = newEnglish;
 	strMorse = newMorse;
@@ -9,24 +10,41 @@ BSTNode::BSTNode(char newEnglish, string newMorse, BSTNode * newRight, BSTNode *
 	pLeft = nullptr;
 }
 
-char BSTNode::getnormEnglish() const
+template<class C, class S>
+C BSTNode<C,S>::getnormEnglish() 
 {
 	return normEnglish;
 }
 
-string BSTNode::getstrMorse() const
+
+template<class C, class S>
+S BSTNode<C, S>::getstrMorse() 
 {
 	return strMorse;
 }
 
-BSTNode *& BSTNode::getpRight(void)
+
+template<class C, class S>
+BSTNode<C, S> *& BSTNode<C, S>::getpRight(void)
 {
 	return pRight;
 }
 
-BSTNode *& BSTNode::getpLeft()
+
+template<class C, class S>
+BSTNode<C, S> *& BSTNode<C, S>::getpLeft()
 {
 	return pLeft;
+}
+
+template<class C, class S>
+void BSTNode<C, S>::printInOrder()
+{
+}
+
+template<class C, class S>
+void BSTNode<C, S>::searchEnglish()
+{
 }
 
 

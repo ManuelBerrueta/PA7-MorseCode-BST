@@ -1,12 +1,18 @@
 #include "BST.h"
 
-BST::BST()
+template <class T, class S>
+BST<T, S>::BST()
 {
 	pRoot = nullptr;
+
+
+
+	//FILE
+	fileWork.open();
 }
 
-
-bool BST::isEmpty()
+template<class T, class S>
+bool BST<T, S>::isEmpty()
 {
 	return pRoot == nullptr;
 }
