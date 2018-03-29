@@ -12,6 +12,8 @@ public:
 
 	bool isEmpty();
 
+	void insert(C & englishChar, S & Morse);
+
 	//print() recursively prints BST in order (left most pritnted first)
 	//search() will return morse code for each English char
 
@@ -23,5 +25,6 @@ private:
 	BSTNode<C,S> * pRoot;
 	//void insert(BSTNode *& pTree, const string & info);
 	fstream fileWork;
+	void insert(BSTNode *& pTree, C & englishChar, S & Morse;
 
 };
