@@ -26,17 +26,67 @@ public:
 	C getnormEnglish();
 	S getstrMorse();
 
+	void setEnglish(C newEnglish);
+	void setMorse(S newMorse);
+
 
 	BSTNode *& getpRight();
 	BSTNode *& getpLeft();
-	
-	void printInOrder();
-	void searchEnglish();
 
 private:
-	C normEnglish[1];
+	C normEnglish;
 	S strMorse;
 
 	BSTNode *pRight;
 	BSTNode *pLeft;
 };
+
+
+//Default Constructor
+template<class C, class S>
+BSTNode<C, S>::BSTNode(C newEnglish, S newMorse)
+{
+	normEnglish = newEnglish;
+	strMorse = newMorse;
+	this->pRight = nullptr;
+	this->pLeft = nullptr;
+}
+
+template<class C, class S>
+C BSTNode<C, S>::getnormEnglish()
+{
+	return normEnglish;
+}
+
+
+template<class C, class S>
+S BSTNode<C, S>::getstrMorse()
+{
+	return strMorse;
+}
+
+template<class C, class S>
+void BSTNode<C, S>::setEnglish(C newEnglish)
+{
+	this->normEnglish = newEnglish;
+}
+
+template<class C, class S>
+void BSTNode<C, S>::setMorse(S newMorse)
+{
+	this->strMorse = newMorse;
+}
+
+
+template<class C, class S>
+BSTNode<C, S> *& BSTNode<C, S>::getpRight()
+{
+	return pRight;
+}
+
+
+template<class C, class S>
+BSTNode<C, S> *& BSTNode<C, S>::getpLeft()
+{
+	return pLeft;
+}

@@ -2,8 +2,7 @@
 
 int main(void)
 {
-
-
+	BST<char, string> MorseTree;
 
 
 
