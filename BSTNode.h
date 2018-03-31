@@ -1,9 +1,24 @@
+/*******************************************************************************
+* Programmer: Manuel Berrueta                                                  *
+* Class: CptS 122; Lab Section 6                                               *
+* Programming Assignment: PA7 - English To Morse Code Converter using a BST    *
+* Date: 3/23/2018                                                              *
+*                                                                              *
+* Description: This program loads the morse code alphabet from a .txt file and *
+*              inserts it into a templated Binary Search Tree. Displays the    *
+*              letters and the equivalent morse code for reference. It then    *
+*              loads ascii strings from a different .txt file, both upper and  *
+*              lower case and converts them to morse code and displays the     *
+*              equivalent morse code to the screen                             *
+*                                                                              *
+********************************************************************************/
+
 #pragma once
 
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <ctime>
+#include <cctype>
 
 using std::ifstream;
 using std::ofstream;
@@ -22,13 +37,11 @@ class BSTNode
 public:
 	BSTNode(C newEnglish, S newMorse);
 	
-	//Our Data is private so we need getters & setters
 	C getnormEnglish();
 	S getstrMorse();
 
 	void setEnglish(C newEnglish);
 	void setMorse(S newMorse);
-
 
 	BSTNode *& getpRight();
 	BSTNode *& getpLeft();
@@ -36,7 +49,6 @@ public:
 private:
 	C normEnglish;
 	S strMorse;
-
 	BSTNode *pRight;
 	BSTNode *pLeft;
 };
@@ -58,7 +70,6 @@ C BSTNode<C, S>::getnormEnglish()
 	return normEnglish;
 }
 
-
 template<class C, class S>
 S BSTNode<C, S>::getstrMorse()
 {
@@ -77,13 +88,11 @@ void BSTNode<C, S>::setMorse(S newMorse)
 	this->strMorse = newMorse;
 }
 
-
 template<class C, class S>
 BSTNode<C, S> *& BSTNode<C, S>::getpRight()
 {
 	return pRight;
 }
-
 
 template<class C, class S>
 BSTNode<C, S> *& BSTNode<C, S>::getpLeft()

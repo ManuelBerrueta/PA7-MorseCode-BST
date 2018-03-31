@@ -1,49 +1,23 @@
+/*******************************************************************************
+* Programmer: Manuel Berrueta                                                  *
+* Class: CptS 122; Lab Section 6                                               *
+* Programming Assignment: PA7 - English To Morse Code Converter using a BST    *
+* Date: 3/23/2018                                                              *
+*                                                                              *
+* Description: This program loads the morse code alphabet from a .txt file and * 
+*              inserts it into a templated Binary Search Tree. Displays the    *
+*              letters and the equivalent morse code for reference. It then    *
+*              loads ascii strings from a different .txt file, both upper and  *
+*              lower case and converts them to morse code and displays the     *
+*              equivalent morse code to the screen                             *
+*                                                                              *
+********************************************************************************/
+
 #include "BST.h"
 
 int main(void)
 {
 	BST<char, string> MorseTree;
-	fstream fileWork;
-	/*
-	loading morse list..template
-	*/
-
-	//fileWork.open("MorseTable.txt", ios::in);
-	//string tempstrEnglish;
-	//char * tempEnglish = nullptr;
-	//string tempMorse;
-	//BSTNode<C, S> tempData(tempEnglish, tempMorse);
-
-	//getline(fileHandle, tempStr);
-
-	//while (getline(fileWork, tempstrEnglish))
-	//{
-	//	getline(fileWork, tempstrEnglish, ','); //might need to make english into a char?
-	//	//strcpy_s(tempEnglish, tempstrEnglish.c_str());
-	//	getline(fileWork, tempMorse, ','); //might need to make morse into a string?
-	//	//BSTNode<C, S> tempData(*tempEnglish, tempMorse);
-	//	//tempData(tempEnglish, tempMorse);
-	//	//At the end of this loop
-	//	MorseTree.insert(*tempEnglish, tempMorse);//I need help with figuring our what to insert here
-	//										  //It needs to be templated, yet I need to use get s to get it in
-	//}
-	//fileWork.close();
-
-	////read file in
-	//fileWork.open("Convert.txt", ios::in);
-	//while (getline(fileWork, tempstrEnglish))
-	//{
-	//	getline(fileWork, tempstrEnglish, ','); //might need to make english into a char?
-	//											//strcpy_s(tempEnglish, tempstrEnglish.c_str());
-	//	getline(fileWork, tempMorse, ','); //might need to make morse into a string?
-	//									   //BSTNode<C, S> tempData(*tempEnglish, tempMorse);
-	//									   //tempData(tempEnglish, tempMorse);
-	//									   //At the end of this loop
-	//	MorseTree.insert(*tempEnglish, tempMorse);//I need help with figuring our what to insert here
-	//											  //It needs to be templated, yet I need to use get s to get it in
-	//}
-	//fileWork.close();
-
 
 	return 0;
 }

@@ -1,3 +1,18 @@
+/*******************************************************************************
+* Programmer: Manuel Berrueta                                                  *
+* Class: CptS 122; Lab Section 6                                               *
+* Programming Assignment: PA7 - English To Morse Code Converter using a BST    *
+* Date: 3/23/2018                                                              *
+*                                                                              *
+* Description: This program loads the morse code alphabet from a .txt file and *
+*              inserts it into a templated Binary Search Tree. Displays the    *
+*              letters and the equivalent morse code for reference. It then    *
+*              loads ascii strings from a different .txt file, both upper and  *
+*              lower case and converts them to morse code and displays the     *
+*              equivalent morse code to the screen                             *
+*                                                                              *
+********************************************************************************/
+
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -7,46 +22,49 @@ template<class C, class S>
 class BST 
 {
 public:
-	//Constructor must open, read "MorseTable.txt", creat nodes for ea char insert nodes into tree
-	//using insert function, close the file
 	BST();
-
 	bool isEmpty();
-
 	void insert(C & englishChar, S & Morse);
-
-	//print() recursively prints BST in order (left most printed first)
-	//search() will return morse code for each English char
-
-	//destructor that destroys the tree
-	//~BST();
-
 	void loadMorseCode();
 	void printInOrder();
-	void searchEnglish();
+	void EnglishToMorse(char &EnglishIn);
 
 private:
 	BSTNode<C,S> * pRoot;
 	fstream fileWork;
 
 	void insert(BSTNode<C, S> *& pTree, C & englishChar, S & Morse);
-	void searchEnglish(BSTNode<C, S>* pTree);
+	void EnglishToMorse(BSTNode<C, S>* pTree, char &EnglishIn);
 	void printInOrder(BSTNode<C, S> * pTree);
-
 };
 
 template <class C, class S>
 BST<C, S>::BST()
 {
 	pRoot = nullptr;
-	//C TempEnglish;
-	//S TempMorse;
+	string tempstrEnglish;
+	char tempEnglish = '\0';
+	int index = 0;
 
-	//BSTNode<C, S> *pTreeTemp = new BSTNode<C, S>(TempEnglish, TempMorse);
 	loadMorseCode();
-	//FILE
-	/*fileWork.open("MorseTable.txt", ios::in);*/
+	
+	fileWork.open("Convert.txt", ios::in);
 
+	while (getline(fileWork, tempstrEnglish))
+	{
+		/*Loop to changer each character to  
+		  Uppercase & translate to Morse Code */
+		while (index <= tempstrEnglish.length())
+		{
+			tempEnglish = tempstrEnglish[index];
+			tempEnglish = toupper(tempEnglish);
+			EnglishToMorse(tempEnglish);	
+			index++;
+		}
+		cout << endl;
+		index = 0;
+	}
+	fileWork.close();
 }
 
 template<class C, class S>
@@ -56,9 +74,9 @@ bool BST<C, S>::isEmpty()
 }
 
 template<class C, class S>
-void BST<C, S>::insert(C & englishChar, S & Morse)
+void BST<C, S>::insert(C & EnglishChar, S & Morse)
 {
-	insert(pRoot, englishChar, Morse);
+	insert(pRoot, EnglishChar, Morse);
 }
 
 template<class C, class S>
@@ -68,20 +86,12 @@ void BST<C, S>::loadMorseCode()
 	string tempstrEnglish;
 	char tempEnglish = '\0';
 	string tempMorse;
-	//BSTNode<C, S> tempData(tempEnglish, tempMorse);
-
-	//getline(fileHandle, tempStr);
 
 	while (getline(fileWork, tempstrEnglish, ','))
 	{
-		//getline(fileWork, tempstrEnglish, ','); //might need to make english into a char?
 		tempEnglish = tempstrEnglish[0];
-		getline(fileWork, tempMorse); //might need to make morse into a string?
-		//BSTNode<C, S> tempData(*tempEnglish, tempMorse);
-		//tempData(tempEnglish, tempMorse);
-		//At the end of this loop
-		this->insert(tempEnglish, tempMorse);//I need help with figuring our what to insert here
-											  //It needs to be templated, yet I need to use get s to get it in
+		getline(fileWork, tempMorse); 
+		this->insert(tempEnglish, tempMorse);
 	}
 	fileWork.close();
 	printInOrder();
@@ -94,37 +104,27 @@ void BST<C, S>::printInOrder()
 }
 
 template<class C, class S>
-void BST<C, S>::searchEnglish()
+void BST<C, S>::EnglishToMorse(char &EnglishIn)
 {
-	searchEnglish(pRoot);
+	EnglishToMorse(pRoot, EnglishIn);
 }
 
 template<class C, class S>
-void BST<C, S>::searchEnglish(BSTNode<C, S> * pTree)
+void BST<C, S>::EnglishToMorse(BSTNode<C, S> * pTree, char &EnglishIn)
 {
-	fileWork.open("Convert.txt", ios::in);
-	string tempEnglish;
-	string temp
-
-	/*
-	While getline
-
-	*/
-	while (getline(fileWork, tempEnglish))//Just read one char at a time..
+	if (pTree == nullptr)
 	{
-		tempEnglish = tempstrEnglish[0];
-		//traversal if 
-		if (pTree->getnormEnglish() == ) {
-			return;
-		}
-		else {
-			inOrderPrint(pTree->getLeftPtr());
-			cout << *pTree;
-			inOrderPrint(pTree->getRightPtr());
-		}
-
+		return;
 	}
-	fileWork.close(); 
+	else if (pTree->getnormEnglish() == EnglishIn)
+	{
+		cout << pTree->getstrMorse() << " ";
+		return;
+	}
+	else {
+		EnglishToMorse(pTree->getpLeft(), EnglishIn);
+		EnglishToMorse(pTree->getpRight(), EnglishIn);
+	}
 }
 
 template<class C, class S>
@@ -142,8 +142,9 @@ void BST<C, S>::insert(BSTNode<C, S> *& pTree, C & englishChar, S & Morse)
 	{
 		insert(pTree->getpRight(), englishChar, Morse);
 	}
-	else {
-		cout << "Duplicate Ignored" << endl;
+	else 
+	{
+		//cout << "Duplicate Ignored" << endl;
 	}
 }
 
@@ -155,17 +156,16 @@ void BST<C, S>::printInOrder(BSTNode<C, S> * pTree)
 	}
 	else {
 		printInOrder(pTree->getpLeft());
-		//cout << &pTree; //*pTree
 		cout << pTree->getnormEnglish() << " " << pTree->getstrMorse ()<< endl;
 		printInOrder(pTree->getpRight());
 	}
 }
 
-//Overloaded operator to print tree //do I need a function
-template<class C, class S>
-fstream & operator<<(fstream & lhs, BST<C,S> * rhs) 
-{
-	lhs << rhs.pRoot->getnormEnglish() << " ";
-	lhs << rhs.pRoot->getstrMorse() << " ";
-	return lhs; // Don't forget to return lhs! This allows us to chain the operator
-}
+////Overloaded operator to print tree //do I need a function
+//template<class C, class S>
+//fstream & operator<<(fstream & lhs, BST<C,S> * rhs) 
+//{
+//	lhs << rhs.pRoot->getnormEnglish() << " ";
+//	lhs << rhs.pRoot->getstrMorse() << " ";
+//	return lhs; // Don't forget to return lhs! This allows us to chain the operator
+//}
