@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 
 #include "BSTNode.h"
 
@@ -65,23 +66,25 @@ void BST<C, S>::loadMorseCode()
 {
 	fileWork.open("MorseTable.txt", ios::in);
 	string tempstrEnglish;
-	char * tempEnglish;
+	char tempEnglish = '\0';
 	string tempMorse;
 	//BSTNode<C, S> tempData(tempEnglish, tempMorse);
 
 	//getline(fileHandle, tempStr);
 
-	while (getline(fileWork, tempstrEnglish))
+	while (getline(fileWork, tempstrEnglish, ','))
 	{
-		getline(fileWork, tempstrEnglish, ','); //might need to make english into a char?
-		strcpy(tempEnglish, tempstrEnglish.c_str());
-		getline(fileWork, tempMorse, ','); //might need to make morse into a string?
-		BSTNode<C, S> tempData(tempEnglish, tempMorse);
-		tempData(fileWork, tempMorse);
+		//getline(fileWork, tempstrEnglish, ','); //might need to make english into a char?
+		tempEnglish = tempstrEnglish[0];
+		getline(fileWork, tempMorse); //might need to make morse into a string?
+		//BSTNode<C, S> tempData(*tempEnglish, tempMorse);
+		//tempData(tempEnglish, tempMorse);
 		//At the end of this loop
-		this->insert(tempData);
+		this->insert(tempEnglish, tempMorse);//I need help with figuring our what to insert here
+											  //It needs to be templated, yet I need to use get s to get it in
 	}
 	fileWork.close();
+	printInOrder();
 }
 
 template<class C, class S>
@@ -99,16 +102,29 @@ void BST<C, S>::searchEnglish()
 template<class C, class S>
 void BST<C, S>::searchEnglish(BSTNode<C, S> * pTree)
 {
-	if (pTree->getnormEnglish() == ) {
-		cout << "Unknown Character" << endl;
-		return;
-	}
-	else {
-		inOrderPrint(pTree->getLeftPtr());
-		cout << *pTree;
-		inOrderPrint(pTree->getRightPtr());
-	}
+	fileWork.open("Convert.txt", ios::in);
+	string tempEnglish;
+	string temp
 
+	/*
+	While getline
+
+	*/
+	while (getline(fileWork, tempEnglish))//Just read one char at a time..
+	{
+		tempEnglish = tempstrEnglish[0];
+		//traversal if 
+		if (pTree->getnormEnglish() == ) {
+			return;
+		}
+		else {
+			inOrderPrint(pTree->getLeftPtr());
+			cout << *pTree;
+			inOrderPrint(pTree->getRightPtr());
+		}
+
+	}
+	fileWork.close(); 
 }
 
 template<class C, class S>
@@ -116,13 +132,13 @@ void BST<C, S>::insert(BSTNode<C, S> *& pTree, C & englishChar, S & Morse)
 {
 	if (pTree == nullptr)
 	{
-		pTree = new BSTNode(englishChar, Morse);
+		pTree = new BSTNode<C, S>(englishChar, Morse);
 	}
 	else if (englishChar < pTree->getnormEnglish())
 	{
 		insert(pTree->getpLeft(), englishChar, Morse);
 	}
-	else if (englishChar > pTree->getData())
+	else if (englishChar > pTree->getnormEnglish())
 	{
 		insert(pTree->getpRight(), englishChar, Morse);
 	}
@@ -138,8 +154,18 @@ void BST<C, S>::printInOrder(BSTNode<C, S> * pTree)
 		return;
 	}
 	else {
-		inOrderPrint(pTree->getpLeft());
-		cout << *pTree;
-		inOrderPrint(pTree->getpRight());
+		printInOrder(pTree->getpLeft());
+		//cout << &pTree; //*pTree
+		cout << pTree->getnormEnglish() << " " << pTree->getstrMorse ()<< endl;
+		printInOrder(pTree->getpRight());
 	}
+}
+
+//Overloaded operator to print tree //do I need a function
+template<class C, class S>
+fstream & operator<<(fstream & lhs, BST<C,S> * rhs) 
+{
+	lhs << rhs.pRoot->getnormEnglish() << " ";
+	lhs << rhs.pRoot->getstrMorse() << " ";
+	return lhs; // Don't forget to return lhs! This allows us to chain the operator
 }
